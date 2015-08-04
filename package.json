@@ -17,9 +17,7 @@
         "passport": "^0.2.2",
         "passport-facebook": "^2.0.0"
     },
-    {
-        "engines": {
-            "node": ">0.12"
-        }
+    "engines": {
+        "node": "^0.12.0"
     }
 }
