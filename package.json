@@ -9,6 +9,7 @@
   "author": "Alex Bardanov",
   "license": "ISC",
   "dependencies": {
+    "alt": "^0.17.1",
     "babel": "^5.8.21",
     "body-parser": "^1.13.3",
     "browserify": "^11.0.1",
