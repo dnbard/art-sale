@@ -1,0 +1,19 @@
+body{
+    background: #E9EAED;
+}
+
+header{
+    height: 40px;
+    width: 100%;
+    background: #DFE0E4;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+}
+
+header .user-name{
+    float: right;
+    font-size: 13pt;
+    margin: 5px 3px;
+}
