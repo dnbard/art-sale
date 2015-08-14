@@ -2,7 +2,7 @@ var Users = require('../models/users');
 var Errors = require('../core/errors');
 
 exports.getOneById = function(req, res, next){
-    var id = req.params.id;
+    var id = req.params.uid;
 
     Users.findOne({ _id: id })
         .select({ facebookId: false })

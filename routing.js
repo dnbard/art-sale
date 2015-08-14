@@ -2,6 +2,7 @@ var Auth = require('./middleware/auth');
 var passport = require('passport');
 var IndexController = require('./controllers');
 var UsersController = require('./controllers/users');
+var HeroesController = require('./controllers/heroes');
 
 exports.init = function(app){
     app.get('/', IndexController.default);
@@ -17,7 +18,9 @@ exports.init = function(app){
         failureRedirect: '/login'
     }));
 
-    app.get('/api/users/:id', [Auth.api], UsersController.getOneById);
+    app.get('/api/users/:uid', [Auth.api], UsersController.getOneById);
+
+    app.get('/api/users/:uid/heroes', [Auth.api], HeroesController.getAllByUser);
 
 
 
