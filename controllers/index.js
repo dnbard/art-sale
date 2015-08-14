@@ -1,3 +1,6 @@
 exports.default = function(req, res){
-    res.send('Hello World!');
+    if (!req.isAuthenticated()){
+        return res.render('indexDefault.jade');
+    }
+    return res.render('indexAuth.jade');
 }
