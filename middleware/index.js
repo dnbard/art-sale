@@ -23,4 +23,6 @@ exports.init = function(app){
 
 
     isInitialized = true;
+
+    console.log('Middlewares initialized');
 }

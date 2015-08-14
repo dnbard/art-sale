@@ -4,6 +4,8 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('../config');
 var Users = require('../models/users');
+var dispatcher = require('../core/dispatcher');
+var Events = require('../enums/events');
 
 exports.init = function(app){
     if (isInitialized){
@@ -30,6 +32,8 @@ exports.init = function(app){
                             if (err){
                                 return done(err);
                             }
+
+                            dispatcher.emit(Events.USER.CREATED, user);
 
                             done(null, user);
                         });

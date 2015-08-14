@@ -1,10 +1,12 @@
-var ensureAuthenticated = require('./middleware/auth');
+var Auth = require('./middleware/auth');
 var passport = require('passport');
+var IndexController = require('./controllers');
+var UsersController = require('./controllers/users');
 
 exports.init = function(app){
-    app.get('/', require('../controllers').default);
+    app.get('/', IndexController.default);
 
-    app.get('/data', ensureAuthenticated, function (req, res) {
+    app.get('/data', [Auth.basic], function (req, res) {
         res.send('DAATA');
     });
 
@@ -14,4 +16,8 @@ exports.init = function(app){
         successRedirect: '/',
         failureRedirect: '/login'
     }));
+
+    app.get('/api/users/:id', [Auth.api], UsersController.getOneById);
+
+    console.log('Routing initialized');
 }
