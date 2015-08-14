@@ -25,7 +25,7 @@ function makeRequest(options){
         });
 
         request[options.method](url, function(err, response){
-            if (err){
+            if (err && err.status >= 400){
                 return reject(err, response);
             }
 
