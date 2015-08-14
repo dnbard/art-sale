@@ -1,27 +1,23 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-var babel = require("babel");
+var browserify = require('browserify');
+var babelify = require('babelify');
+var fs = require('fs');
 
 app.engine('jade', require('jade').__express);
 
-babel.transformFile('./frontend/app.js', {}, function(err, result){
-    var fs = require('fs');
-
-    if (err){
-        return console.log(err);
-    }
-
-    fs.writeFile('public/app.js', result.code, function(err){
-        if (err){
-            return console.log(err);
-        }
-
-        console.log('Babelified: public/app.js');
-    });
-});
+browserify({ debug: true })
+    .transform(babelify)
+    .require('./frontend/app.js', { entry: true })
+    .bundle()
+    .on('error', function (err) { console.log('Error: ' + err.message); })
+    .on('end', function(){ console.log('Browserified: /public/app.js'); })
+    .pipe(fs.createWriteStream('./public/app.js'));
 
 mongoose.connect('mongodb://localhost:27017/artail', require('./core/configParser')(function(config){
+    console.log('Connected to database(type:mongodb)');
+
     var server = app.listen(process.env.PORT || config.get('port'), function () {
         var host = server.address().address;
         var port = server.address().port;
