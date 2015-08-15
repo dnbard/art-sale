@@ -22,7 +22,7 @@ var HeroesList = React.createClass({
     render: function(){
         return (
             <div className="heroes">
-                { this.state.heroes.map(h => <HeroesListItem hero={h} />) }
+                { this.state.heroes.map(h => <HeroesListItem key={h._id} hero={h} />) }
             </div>
         );
     }

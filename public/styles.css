@@ -8,6 +8,12 @@ body{
     margin: 0;
     padding: 8px;
     box-sizing: border-box;
+    font-family: 'Amatic SC', cursive;
+    font-size: 16pt;
+}
+
+.bold{
+    font-weight: bold;
 }
 
 .container{
@@ -27,8 +33,9 @@ header{
 
 header .user-name{
     float: right;
-    font-size: 13pt;
-    margin: 5px 3px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 20pt;
+    font-weight: bold;
 }
 
 .heroes{
@@ -76,4 +83,12 @@ header .user-name{
     border-top: lightgrey 1px solid;
     box-sizing: border-box;
     background: url(http://lorempixel.com/54/54);
+}
+
+.hero-display-name{
+    position: absolute;
+    top: -2px;
+    left: 60px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 20pt;
 }
