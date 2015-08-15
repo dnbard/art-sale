@@ -11,8 +11,9 @@ var HeroesListItem = React.createClass({
                 <div className="hero-portrait" />
                 <div className="hero-display-name" >
                     <span className="bold">{hero.displayName}</span>
-                    <span> - Lvl. {level} {hero.race} {hero.class}</span>
+                    <span> - Lvl. <span className="bold">{level}</span> {hero.race} {hero.class}</span>
                 </div>
+                <div className="hero-ilvl">iLvl. <span className="bold">{hero.itemLvl}</span></div>
             </div>
         );
     }

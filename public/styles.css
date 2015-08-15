@@ -87,8 +87,14 @@ header .user-name{
 
 .hero-display-name{
     position: absolute;
-    top: -2px;
+    top: -4px;
     left: 60px;
-    font-family: 'Amatic SC', cursive;
     font-size: 20pt;
+}
+
+.hero-ilvl{
+    position: absolute;
+    top: 23px;
+    left: 60px;
+    font-size: 16pt;
 }
