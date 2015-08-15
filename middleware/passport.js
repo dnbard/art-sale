@@ -45,12 +45,12 @@ exports.init = function(app){
     ));
 
     passport.serializeUser(function (user, done) {
-        console.log('Serialize: %s', user._id);
+//        console.log('Serialize: %s', user._id);
         done(null, user);
     });
 
     passport.deserializeUser(function (user, done) {
-        console.log('Deserialize: %s', user._id);
+//        console.log('Deserialize: %s', user._id);
 
         Users.findById(user._id, function(err, user){
             if(!err){
