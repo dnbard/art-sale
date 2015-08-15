@@ -13,7 +13,7 @@ class UserActions {
     }
 
     fetchUser(){
-        DAL.getUserById({ id: userId })
+        DAL.getUserById({ uid: userId })
             .then((r) => {
                 this.actions.updateUser(r.body);
             }).catch((r) => {

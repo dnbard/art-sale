@@ -15,7 +15,6 @@ var Header = React.createClass({
 
     onChange: function(state) {
         this.setState(state);
-        console.log(state);
     },
 
     render: function(){

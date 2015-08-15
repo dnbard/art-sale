@@ -5,7 +5,11 @@ var objectAssign = require('object-assign');
 var config = [{
     endpoint: 'getUserById',
     method: 'get',
-    url: 'api/users/{id}'
+    url: 'api/users/{uid}'
+},{
+    endpoint: 'getHeroesByUser',
+    method: 'get',
+    url: '/api/users/{uid}/heroes'
 }];
 
 function makeRequest(options){
