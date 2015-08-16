@@ -1,11 +1,7 @@
 var alt = require('../alt');
-
 var DAL = require('../core/dal');
-var uuid = require('node-uuid').v4;
 
-var userId = document.querySelector('#user-id').value;
-document.querySelector('#user-id').value = uuid();
-
+var userId = require('../providers/userId').get();
 
 class UserActions {
     updateUser(user) {
