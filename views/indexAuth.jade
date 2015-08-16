@@ -7,6 +7,7 @@ html(lang="en")
         link(href="http://fonts.googleapis.com/css?family=Amatic+SC:400,700", rel="stylesheet", type="text/css")
     body
         input#user-id(type="hidden", value=userId)
+        input#token(type="hidden", value=websocketToken)
         input#debug(type="hidden", value="false")
         div#app
         script(src="/app.js")

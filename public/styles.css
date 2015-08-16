@@ -46,7 +46,6 @@ header .user-name{
     background-color: #DFE0E4;
     border: lightgrey 1px solid;
     border-radius: 2px;
-    height: calc(100% - 45px);
     box-sizing: border-box;
     overflow-y: auto;
 }

@@ -7,7 +7,8 @@ var Users = mongoose.model('User', {
     displayName: String,
     created: Date,
     facebookId: { type: String, index: true },
-    heroes : [{ type: String, ref: 'Heroes' }]
+    heroes : [{ type: String, ref: 'Heroes' }],
+    wsToken: String
 });
 
 module.exports = Users;
