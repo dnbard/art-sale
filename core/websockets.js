@@ -2,8 +2,13 @@ var queryString = require('query-string');
 var Users = require('../models/users');
 
 var Clients = new Map();
+var Subscriptions = new WeakMap();
 
 exports.init = function(wss){
+    var Instance = require('../models/instances');
+
+    var instance = Instance.createBasic();
+
     wss.on('connection', function(ws){
         var parsed;
 
@@ -20,7 +25,8 @@ exports.init = function(wss){
             } else {
                 console.log('Websocket client connected');
 
-                Clients.set(parsed.uid, parsed.token);
+                Clients.set(parsed.uid, ws);
+                subscribe(user, instance);
 
                 ws.on('close', function(){
                     console.log('Websocket client disconnected');
@@ -28,5 +34,36 @@ exports.init = function(wss){
                 });
             }
         });
+    });
+}
+
+function subscribe(client, channel){
+    if (Subscriptions.has(channel)){
+        var subscriptions = Subscriptions.get(channel);
+        if (subscriptions.indexOf(client._id) === -1){
+            subscriptions.push(client._id);
+        }
+    } else {
+        Subscriptions.set(channel, [ client._id ]);
+    }
+
+    sendMessage(channel, {
+        userId: client._id,
+        type: 'subscribed',
+        instanceId: channel._id
+    }, client._id);
+}
+
+function sendMessage(channel, message, id){
+    var clients = Subscriptions.get(channel);
+    var messageToSend = typeof message === 'string' ? message : JSON.stringify(message);
+
+    clients.forEach(function(clientId){
+        if (typeof id === 'string' && clientId !== id){
+            return true;
+        }
+
+        var ws = Clients.get(clientId);
+        ws.send(messageToSend);
     });
 }

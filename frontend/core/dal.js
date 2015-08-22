@@ -10,6 +10,10 @@ var config = [{
     endpoint: 'getHeroesByUser',
     method: 'get',
     url: '/api/users/{uid}/heroes'
+},{
+    endpoint: 'getActorsByInstance',
+    method: 'get',
+    url: '/api/instance/{iid}/actors'
 }];
 
 function makeRequest(options){

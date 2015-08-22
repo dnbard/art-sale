@@ -5,6 +5,7 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var fs = require('fs');
 var WebSocketServer = require('ws').Server;
+var WebSocketService = require('./core/websockets');
 
 app.engine('jade', require('jade').__express);
 
@@ -27,6 +28,6 @@ mongoose.connect('mongodb://localhost:27017/artail', require('./core/configParse
         require('./services').create();
 
         var wss = new WebSocketServer({server: server});
-        require('./core/websockets').init(wss);
+        WebSocketService.init(wss);
     });
 }));

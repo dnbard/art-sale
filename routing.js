@@ -3,6 +3,7 @@ var passport = require('passport');
 var IndexController = require('./controllers');
 var UsersController = require('./controllers/users');
 var HeroesController = require('./controllers/heroes');
+var ActorsController = require('./controllers/actors');
 
 exports.init = function(app){
     app.get('/', IndexController.default);
@@ -22,7 +23,7 @@ exports.init = function(app){
 
     app.get('/api/users/:uid/heroes', [Auth.api], HeroesController.getAllByUser);
 
-
+    app.get('/api/instance/:iid/actors', [Auth.api], ActorsController.getFewByInstance);
 
 
 
