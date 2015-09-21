@@ -4,11 +4,7 @@ var Users = require('../models/users');
 var Clients = new Map();
 var Subscriptions = new WeakMap();
 
-exports.init = function(wss){
-    var Instance = require('../models/instances');
-
-    var instance = Instance.createBasic();
-
+function init(wss){
     wss.on('connection', function(ws){
         var parsed;
 
@@ -24,9 +20,7 @@ exports.init = function(wss){
                 console.log('Websocket client auto-disconnected');
             } else {
                 console.log('Websocket client connected');
-
                 Clients.set(parsed.uid, ws);
-                subscribe(user, instance);
 
                 ws.on('close', function(){
                     console.log('Websocket client disconnected');
@@ -45,6 +39,7 @@ function subscribe(client, channel){
         }
     } else {
         Subscriptions.set(channel, [ client._id ]);
+        console.log('Channel(id=%s) created', channel);
     }
 
     sendMessage(channel, {
@@ -52,6 +47,32 @@ function subscribe(client, channel){
         type: 'subscribed',
         instanceId: channel._id
     }, client._id);
+
+    console.log('User(id=%s) subscribed to channel(id=%s)', client._id, channel);
+}
+
+function unsubscribe(client, channel){
+    var array, index;
+
+    if (Subscriptions.has(channel)){
+        array = Subscriptions.get(channel);
+        index = array.indexOf(client._id);
+        if (index > -1) {
+            Subscriptions.set(channel, array.splice(index, 1));
+
+            sendMessage(channel, {
+                userId: client._id,
+                type: 'unsubscribed',
+                instanceId: channel._id
+            }, client._id);
+
+            console.log('User(id=%s) unsubscribed from channel(id=%s)', client._id, channel);
+        } else {
+            console.log('User(id=%s) failed to unsubscribed from channel(id=%s)', client._id, channel);
+        }
+    } else {
+        console.log('Channel(id=%s) not found; user(id=%s) cannot unsubscribe', channel, client._id);
+    }
 }
 
 function sendMessage(channel, message, id){
@@ -67,3 +88,10 @@ function sendMessage(channel, message, id){
         ws.send(messageToSend);
     });
 }
+
+module.exports = {
+    subscribe: subscribe,
+    unsubscribe: unsubscribe,
+    init: init,
+    sendMessage: sendMessage
+};
